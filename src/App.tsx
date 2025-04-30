@@ -1,372 +1,255 @@
-import React, { useState } from 'react';
-import { Shield, ShieldCheck, ShieldPlus, CheckCircle2, ChevronRight, Phone, Mail, MapPin, Heart, Clock, FileCheck } from 'lucide-react';
-
-type Plan = {
-  id: string;
-  name: string;
-  price: string;
-  icon: React.ReactNode;
-  features: string[];
-  highlight?: boolean;
-};
-
-type FormData = {
-  name: string;
-  cpf: string;
-  phone: string;
-  email: string;
-  address: string;
-};
+import React, { useRef } from 'react';
+import { Mail, MessageSquare, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { GlassForm } from './components/GlassForm';
+import { PlanosGrid, Plano } from './components/PlanosGrid';
 
 function App() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    cpf: '',
-    phone: '',
-    email: '',
-    address: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [selectedPlano, setSelectedPlano] = React.useState<Plano | undefined>(undefined);
+  const plansRef = useRef<HTMLDivElement>(null);
 
-  const plans: Plan[] = [
-    {
-      id: 'basic',
-      name: 'Plano Essencial',
-      price: 'R$ 89,90/mês',
-      icon: <Shield className="w-12 h-12 text-blue-500" />,
-      features: [
-        'Cobertura por morte natural: R$ 50.000',
-        'Cobertura por acidente: R$ 100.000',
-        'Assistência funeral completa',
-        'Auxílio alimentação: R$ 500/mês por 6 meses',
-        'Suporte jurídico familiar'
-      ]
-    },
-    {
-      id: 'premium',
-      name: 'Plano Família',
-      price: 'R$ 149,90/mês',
-      icon: <ShieldCheck className="w-12 h-12 text-blue-600" />,
-      highlight: true,
-      features: [
-        'Cobertura por morte natural: R$ 100.000',
-        'Cobertura por acidente: R$ 200.000',
-        'Assistência funeral familiar completa',
-        'Auxílio alimentação: R$ 800/mês por 12 meses',
-        'Invalidez permanente: R$ 100.000',
-        'Suporte jurídico e financeiro'
-      ]
-    },
-    {
-      id: 'ultra',
-      name: 'Plano Proteção Total',
-      price: 'R$ 199,90/mês',
-      icon: <ShieldPlus className="w-12 h-12 text-blue-700" />,
-      features: [
-        'Cobertura por morte natural: R$ 200.000',
-        'Cobertura por acidente: R$ 400.000',
-        'Assistência funeral familiar estendida',
-        'Auxílio alimentação: R$ 1.200/mês por 24 meses',
-        'Invalidez permanente: R$ 200.000',
-        'Auxílio psicológico familiar',
-        'Planejamento financeiro personalizado'
-      ]
-    }
+  const planos: Plano[] = [
+    { id: 1, nome: 'PLANO 1', capital: '10.000', quantidade: 1, premio: '29,90' },
+    { id: 2, nome: 'PLANO 2', capital: '15.000', quantidade: 2, premio: '44,85' },
+    { id: 3, nome: 'PLANO 3', capital: '20.000', quantidade: 3, premio: '59,80' },
+    { id: 4, nome: 'PLANO 4', capital: '25.000', quantidade: 4, premio: '74,75' },
+    { id: 5, nome: 'PLANO 5', capital: '35.000', quantidade: 5, premio: '104,65' },
+    { id: 6, nome: 'PLANO 6', capital: '50.000', quantidade: 6, premio: '149,50' },
+    { id: 7, nome: 'PLANO 7', capital: '75.000', quantidade: 7, premio: '199,90' },
+    { id: 8, nome: 'PLANO 8', capital: '100.000', quantidade: 8, premio: '249,90' },
+    { id: 9, nome: 'PLANO 9', capital: '150.000', quantidade: 9, premio: '299,90' },
   ];
 
-  const handlePlanSelect = (planId: string) => {
-    setSelectedPlan(planId);
-    setShowForm(true);
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    console.log({ ...formData, plan: selectedPlan });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handlePlanoSelect = (plano: Plano) => {
+    setSelectedPlano(plano);
+    setTimeout(() => {
+      plansRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div 
-        className="relative bg-gradient-to-r from-blue-900 to-blue-700 text-white py-32"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1623172912473-dc6c8b33d9c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-gray-50">
+      {/* WhatsApp Button */}
+      <a 
+        href="https://wa.me/5511999999999" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors z-50"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-700/80"></div>
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl">
-            <h1 className="text-6xl font-bold mb-6 leading-tight">Segurança e Tranquilidade para Quem Não Para</h1>
-            <p className="text-xl mb-8 text-blue-100">Proteja o futuro da sua família enquanto você trabalha. Cobertura completa com benefícios exclusivos para profissionais das duas rodas.</p>
-            <div className="flex gap-4">
-              <button 
-                onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
-                className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-colors flex items-center text-lg"
+        <MessageSquare className="w-8 h-8" />
+      </a>
+
+      {/* Hero Section Clean */}
+      <header className="w-full py-12 flex flex-col items-center justify-center bg-white/80 border-b border-gray-100">
+        <img src="/logo-jobseguros.png" alt="Job Seguros Logo" className="w-20 h-20 rounded-full bg-white shadow p-2 mb-6" />
+        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-4">Proteção sob medida para você</motion.h1>
+        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-lg sm:text-xl text-gray-500 text-center max-w-2xl mb-8">Simples, rápido e seguro. Escolha seu plano e garanta sua tranquilidade.</motion.p>
+        <motion.button
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
+          onClick={() => plansRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          className="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center text-lg shadow"
+        >
+          Ver Planos <ChevronDown className="ml-2 w-5 h-5" />
+        </motion.button>
+      </header>
+
+      {/* Stats Section Clean */}
+      <section className="py-12 bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-center gap-8">
+          {[
+            { label: 'Profissionais Protegidos', value: '50.000+' },
+            { label: 'Satisfação', value: '98%' },
+            { label: 'Pagamento em até', value: '24h' },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="flex-1 text-center"
+            >
+              <div className="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">{stat.value}</div>
+              <div className="text-gray-500 text-base font-medium">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Benefits Section Clean */}
+      <section className="py-20 bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4">
+          {[
+            {
+              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>,
+              title: 'Cobertura Completa',
+              desc: 'Planos que protegem você e sua família em todas as situações.'
+            },
+            {
+              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>,
+              title: 'Agilidade no Atendimento',
+              desc: 'Processo simples e pagamento rápido dos benefícios.'
+            },
+            {
+              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path strokeLinecap="round" strokeLinejoin="round" d="M2 10h20" /></svg>,
+              title: 'Contratação Online',
+              desc: 'Faça tudo pelo site, sem burocracia e com suporte dedicado.'
+            }
+          ].map((b, i) => (
+            <motion.div
+              key={b.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-white rounded-2xl shadow p-8 text-center border border-gray-100"
+            >
+              <div className="flex items-center justify-center mb-4">{b.icon}</div>
+              <div className="text-lg font-bold mb-2 text-gray-900">{b.title}</div>
+              <div className="text-gray-500 text-base">{b.desc}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials Section Clean */}
+      <section className="py-20 bg-gray-50 border-b border-gray-100">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">O que dizem nossos clientes</h2>
+          <div className="flex flex-col gap-8">
+            {[
+              {
+                name: 'João Silva',
+                text: 'O seguro me deu tranquilidade para trabalhar. Quando precisei, o atendimento foi rápido e eficiente.'
+              },
+              {
+                name: 'Maria Santos',
+                text: 'A assistência que recebemos foi fundamental em um momento difícil. Recomendo a todos!'
+              },
+              {
+                name: 'Carlos Oliveira',
+                text: 'Processo simples e benefícios que fazem a diferença. Melhor decisão que tomei!'
+              }
+            ].map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.2 }}
+                className="bg-white rounded-xl shadow p-6 text-center border border-gray-100"
               >
-                Ver Planos
-                <ChevronRight className="ml-2" />
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-colors text-lg">
-                Fale Conosco
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <div className="bg-white py-12 shadow-lg relative z-10 -mt-10">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">+50 mil</div>
-              <p className="text-gray-600">Profissionais Protegidos</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">98%</div>
-              <p className="text-gray-600">Satisfação no Atendimento</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">24h</div>
-              <p className="text-gray-600">Pagamento de Benefícios</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Benefits Section */}
-      <div className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Por que escolher nosso seguro?</h2>
-          <p className="text-xl text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-            Desenvolvido especialmente para profissionais das entregas, nosso seguro oferece a proteção que você e sua família precisam.
-          </p>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center p-6 hover:transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-10 h-10 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Proteção Familiar</h3>
-              <p className="text-gray-600 leading-relaxed">Garantimos o suporte financeiro que sua família precisa, com coberturas abrangentes e benefícios exclusivos.</p>
-            </div>
-            <div className="text-center p-6 hover:transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Clock className="w-10 h-10 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Agilidade Total</h3>
-              <p className="text-gray-600 leading-relaxed">Pagamento de benefícios em até 24 horas após a documentação, quando você mais precisa.</p>
-            </div>
-            <div className="text-center p-6 hover:transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <FileCheck className="w-10 h-10 text-blue-600" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Processo Simples</h3>
-              <p className="text-gray-600 leading-relaxed">Contratação descomplicada e suporte completo na hora de acionar o seguro.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Plans Section */}
-      <div className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Escolha a proteção ideal</h2>
-          <p className="text-xl text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-            Planos flexíveis que se adaptam às suas necessidades, com coberturas amplas e benefícios exclusivos.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {plans.map((plan) => (
-              <div 
-                key={plan.id}
-                className={`bg-white rounded-2xl shadow-xl p-8 border-2 transform transition-all duration-300 hover:-translate-y-2 ${
-                  selectedPlan === plan.id ? 'border-blue-500 scale-105' : 
-                  plan.highlight ? 'border-blue-200 scale-105' : 'border-transparent'
-                }`}
-              >
-                <div className="text-center mb-8">
-                  {plan.icon}
-                  <h3 className="text-2xl font-bold mt-4">{plan.name}</h3>
-                  <p className="text-3xl font-bold text-blue-600 mt-4">{plan.price}</p>
-                  {plan.highlight && (
-                    <span className="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-semibold mt-2 inline-block">
-                      Mais Popular
-                    </span>
-                  )}
-                </div>
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <CheckCircle2 className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => handlePlanSelect(plan.id)}
-                  className={`w-full py-4 rounded-xl font-semibold text-lg transition-colors ${
-                    selectedPlan === plan.id
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
-                  }`}
-                >
-                  Contratar Agora
-                </button>
-              </div>
+                <div className="text-gray-700 text-base mb-4">“{t.text}”</div>
+                <div className="text-blue-600 font-semibold">{t.name}</div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Registration Form */}
-      {showForm && !submitted && (
-        <div className="py-24 bg-white">
-          <div className="container mx-auto px-4 max-w-2xl">
-            <h2 className="text-4xl font-bold text-center mb-4">Complete seu cadastro</h2>
-            <p className="text-xl text-gray-600 text-center mb-12">
-              Estamos quase lá! Preencha seus dados para garantir sua proteção.
-            </p>
-            <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-2xl p-8 shadow-lg">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Digite seu nome completo"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">CPF</label>
-                <input
-                  type="text"
-                  name="cpf"
-                  value={formData.cpf}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="000.000.000-00"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Telefone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="(00) 00000-0000"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="seu@email.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Endereço</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Rua, número, complemento"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-blue-700 transition-colors mt-8"
+      {/* FAQ Section Clean */}
+      <section className="py-20 bg-white border-b border-gray-100">
+        <div className="max-w-2xl mx-auto px-4">
+          <h2 className="text-2xl font-bold text-center mb-10 text-gray-900">Perguntas Frequentes</h2>
+          <div className="space-y-4">
+            {[
+              {
+                q: 'Como funciona o processo de contratação?',
+                a: 'É simples e rápido. Após escolher seu plano, preencha o formulário e nossa equipe entrará em contato.'
+              },
+              {
+                q: 'Quanto tempo leva para o seguro começar a valer?',
+                a: 'Após a aprovação da documentação, sua cobertura começa imediatamente.'
+              },
+              {
+                q: 'Posso alterar meu plano depois?',
+                a: 'Sim, você pode alterar seu plano a qualquer momento.'
+              }
+            ].map((faq, i) => (
+              <motion.div
+                key={faq.q}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-gray-50 rounded-xl border border-gray-100 p-4"
               >
-                Finalizar Contratação
-              </button>
-            </form>
+                <details>
+                  <summary className="flex items-center cursor-pointer text-lg font-medium text-blue-700">
+                    <ChevronDown className="w-5 h-5 mr-2" />
+                    {faq.q}
+                  </summary>
+                  <div className="text-gray-600 mt-2 text-base pl-7">{faq.a}</div>
+                </details>
+              </motion.div>
+            ))}
           </div>
         </div>
-      )}
+      </section>
 
-      {/* Success Message */}
-      {submitted && (
-        <div className="py-24 bg-white">
-          <div className="container mx-auto px-4 max-w-2xl text-center">
-            <div className="bg-green-50 rounded-2xl p-12">
-              <CheckCircle2 className="w-24 h-24 text-green-500 mx-auto mb-8" />
-              <h2 className="text-3xl font-bold mb-4">Parabéns! Seu cadastro foi realizado com sucesso!</h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Em breve, nossa equipe entrará em contato para finalizar sua contratação e explicar todos os detalhes do seu plano.
-              </p>
-              <p className="text-gray-500">
-                Fique tranquilo, você receberá um e-mail de confirmação com todas as informações.
-              </p>
-            </div>
-          </div>
+      {/* Plans Section + Registration Form (transição) */}
+      <section className="py-24 bg-gradient-to-b from-white to-gray-50" ref={plansRef}>
+        <div className="container mx-auto px-2 sm:px-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-900">Escolha o seu Bilhete Premiável</h2>
+          <AnimatePresence mode="wait">
+            {!selectedPlano && (
+              <motion.div
+                key="planos"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+              >
+                <PlanosGrid planos={planos} onSelect={handlePlanoSelect} selected={selectedPlano} />
+              </motion.div>
+            )}
+            {selectedPlano && (
+              <motion.div
+                key="form"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.4 }}
+              >
+                <button
+                  onClick={() => setSelectedPlano(undefined)}
+                  className="mb-8 flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                  Voltar e escolher outro plano
+                </button>
+                <GlassForm plano={selectedPlano} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      )}
+      </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
-              <h4 className="text-2xl font-semibold mb-6">Atendimento</h4>
-              <div className="space-y-4">
-                <p className="flex items-center"><Phone className="w-5 h-5 mr-3" /> 0800 123 4567</p>
-                <p className="flex items-center"><Mail className="w-5 h-5 mr-3" /> contato@segurosmoto.com</p>
-                <p className="flex items-center"><MapPin className="w-5 h-5 mr-3" /> São Paulo, SP</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-2xl font-semibold mb-6">Horários</h4>
-              <div className="space-y-4">
-                <p>Segunda a Sexta: 8h às 20h</p>
-                <p>Sábado: 9h às 15h</p>
-                <p className="font-semibold text-blue-400">Emergências: 24h</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-2xl font-semibold mb-6">Regulamentação</h4>
-              <div className="space-y-4">
-                <p>SUSEP: 12345678900</p>
-                <p>CNPJ: 12.345.678/0001-90</p>
-                <p>Processo SUSEP: 15414.123456/2024-12</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="text-2xl font-semibold mb-6">Redes Sociais</h4>
-              <div className="flex space-x-4">
-                <a href="#" className="hover:text-blue-400 transition-colors">Instagram</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">Facebook</a>
-                <a href="#" className="hover:text-blue-400 transition-colors">LinkedIn</a>
-              </div>
-            </div>
+      {/* Footer Modernizado */}
+      <footer className="w-full py-10 border-t border-gray-100 bg-white/80 backdrop-blur-md">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+          {/* Logo e nome */}
+          <div className="flex items-center gap-3 mb-4 md:mb-0">
+            <img src="/logo-jobseguros.png" alt="Job Seguros Logo" className="w-10 h-10 rounded-full bg-white shadow p-1" />
+            <span className="text-gray-700 font-semibold text-base tracking-tight">Job Seguros</span>
           </div>
-          <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-            <p className="text-gray-400">&copy; 2024 Seguros Moto. Todos os direitos reservados.</p>
+          {/* Links rápidos */}
+          <div className="flex items-center gap-6 text-gray-500 text-sm">
+            <a href="mailto:contato@segurosmoto.com" className="hover:text-blue-600 transition-colors flex items-center gap-1" title="E-mail">
+              <Mail className="w-4 h-4" /> E-mail
+            </a>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="hover:text-green-600 transition-colors flex items-center gap-1" title="WhatsApp">
+              <MessageSquare className="w-4 h-4" /> WhatsApp
+            </a>
+            <a href="https://instagram.com/jobseguros" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition-colors flex items-center gap-1" title="Instagram">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg> Instagram
+            </a>
+          </div>
+          {/* Direitos autorais */}
+          <div className="text-gray-400 text-xs mt-4 md:mt-0 text-center md:text-right">
+            &copy; {new Date().getFullYear()} Job Seguros. Todos os direitos reservados.
           </div>
         </div>
       </footer>

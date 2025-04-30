@@ -1,3 +1,45 @@
+# dependencies
+node_modules/
+
+# production
+build/
+dist/
+
+# misc
+.DS_Store
+.env
+.env.*
+*.log
+yarn-error.log
+npm-debug.log
+
+# local env
+*.local
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# test coverage
+coverage/
+
+# next.js
+.next/
+
+# vercel
+.vercel/
+
+# parcel-bundler
+.cache/
+
+# storybook
+out/
+storybook-static/
+
 # Logs
 logs
 *.log
@@ -7,10 +49,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
 dist-ssr
-*.local
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +61,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# package-lock.json
+package-lock.json
+
+# yarn.lock
+yarn.lock
