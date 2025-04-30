@@ -39,78 +39,253 @@ function App() {
         <MessageSquare className="w-8 h-8" />
       </a>
 
-      {/* Hero Section Clean */}
-      <header className="w-full py-12 flex flex-col items-center justify-center bg-white/80 border-b border-gray-100">
-        <img src="/logo-jobseguros.png" alt="Job Seguros Logo" className="w-20 h-20 rounded-full bg-white shadow p-2 mb-6" />
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-4">Proteção sob medida para você</motion.h1>
-        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-lg sm:text-xl text-gray-500 text-center max-w-2xl mb-8">Simples, rápido e seguro. Escolha seu plano e garanta sua tranquilidade.</motion.p>
-        <motion.button
-          initial={{ opacity: 0, y: 30 }}
+      {/* Hero Section Redesigned */}
+      <header className="w-full min-h-[90vh] sm:min-h-[80vh] bg-gradient-to-br from-blue-500 via-blue-400 to-blue-700 relative overflow-hidden px-4 sm:px-6">
+        <div className="container mx-auto h-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center h-full py-12 sm:py-20">
+            {/* Left Content */}
+            <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
+              <div className="space-y-4">
+                <motion.h1 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+                >
+                  A melhor <span className="bg-white text-blue-700 px-3 py-1 rounded-lg inline-block transform -rotate-1">proteção</span>
+                </motion.h1>
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+                >
+                  para <span className="border-2 border-white/50 text-white px-4 py-1 rounded-full inline-block">motoboys</span>
+                </motion.h2>
+                <motion.h2 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
+                >
+                  e suas famílias
+                </motion.h2>
+              </div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="flex justify-center lg:justify-start"
+              >
+                <button 
+                  className="bg-white text-blue-700 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:bg-white/80 transition-colors text-base sm:text-lg"
+                  onClick={() => plansRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Quero ser protegido
+                </button>
+              </motion.div>
+            </div>
+
+            {/* Right Content */}
+            <motion.div 
+              initial={{ opacity: 0, rotate: 0, y: 20 }}
+              animate={{ opacity: 1, rotate: 2, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="relative max-w-lg mx-auto lg:max-w-none"
+            >
+              <div className="bg-white p-3 sm:p-4 rounded-3xl shadow-2xl">
+                <img
+                  src="/motoboy.png"
+                  alt="Proteção para motoboys e família"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Stats Bar */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.7 }}
-          onClick={() => plansRef.current?.scrollIntoView({ behavior: 'smooth' })}
-          className="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-colors flex items-center text-lg shadow"
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm"
         >
-          Ver Planos <ChevronDown className="ml-2 w-5 h-5" />
-        </motion.button>
+          <div className="container mx-auto px-4 py-4 sm:py-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+              {[
+                { value: '10', label: 'Anos de liderança' },
+                { value: '5M+', label: 'Motoboys protegidos' },
+                { value: '115', label: 'Avaliações de clientes' },
+                { value: '24', label: 'Atendimento horas' }
+              ].map((stat) => (
+                <motion.div 
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.9 }}
+                  className="text-center"
+                >
+                  <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-700">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </header>
 
-      {/* Stats Section Clean */}
-      <section className="py-12 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-center gap-8">
-          {[
-            { label: 'Profissionais Protegidos', value: '50.000+' },
-            { label: 'Satisfação', value: '98%' },
-            { label: 'Pagamento em até', value: '24h' },
-          ].map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="flex-1 text-center"
-            >
-              <div className="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">{stat.value}</div>
-              <div className="text-gray-500 text-base font-medium">{stat.label}</div>
-            </motion.div>
-          ))}
+      {/* Benefits Section - Cards Style */}
+      <section className="py-12 sm:py-20 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-8 sm:mb-12 text-center">Por que escolher a Job Seguros?</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                icon: (
+                  <svg className="w-8 sm:w-10 h-8 sm:h-10 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                ),
+                title: 'Cobertura Completa',
+                desc: 'Proteção para motoboys e suas famílias em todas as situações.'
+              },
+              {
+                icon: (
+                  <svg className="w-8 sm:w-10 h-8 sm:h-10 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+                ),
+                title: 'Atendimento Ágil',
+                desc: 'Processo simples e pagamento rápido dos benefícios.'
+              },
+              {
+                icon: (
+                  <svg className="w-8 sm:w-10 h-8 sm:h-10 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path strokeLinecap="round" strokeLinejoin="round" d="M2 10h20" /></svg>
+                ),
+                title: 'Contratação 100% Online',
+                desc: 'Faça tudo pelo site, sem burocracia e com suporte dedicado.'
+              }
+            ].map((b) => (
+              <div key={b.title} className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 text-center border border-gray-100 flex flex-col items-center">
+                <div className="flex items-center justify-center mb-4 sm:mb-6">{b.icon}</div>
+                <div className="text-lg sm:text-xl font-bold mb-2 text-gray-900">{b.title}</div>
+                <div className="text-sm sm:text-base text-gray-500">{b.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Benefits Section Clean */}
-      <section className="py-20 bg-white border-b border-gray-100">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4">
-          {[
-            {
-              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>,
-              title: 'Cobertura Completa',
-              desc: 'Planos que protegem você e sua família em todas as situações.'
-            },
-            {
-              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>,
-              title: 'Agilidade no Atendimento',
-              desc: 'Processo simples e pagamento rápido dos benefícios.'
-            },
-            {
-              icon: <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" rx="2" /><path strokeLinecap="round" strokeLinejoin="round" d="M2 10h20" /></svg>,
-              title: 'Contratação Online',
-              desc: 'Faça tudo pelo site, sem burocracia e com suporte dedicado.'
-            }
-          ].map((b, i) => (
-            <motion.div
-              key={b.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="bg-white rounded-2xl shadow p-8 text-center border border-gray-100"
-            >
-              <div className="flex items-center justify-center mb-4">{b.icon}</div>
-              <div className="text-lg font-bold mb-2 text-gray-900">{b.title}</div>
-              <div className="text-gray-500 text-base">{b.desc}</div>
-            </motion.div>
-          ))}
+      {/* Insurance Types Section - Modern Layout */}
+      <section className="py-12 sm:py-20 bg-gradient-to-br from-blue-50 via-blue-100 to-blue-50 border-b border-gray-100 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mx-auto text-center mb-12 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Proteção completa para você</h2>
+            <p className="text-gray-600 text-base sm:text-lg">Coberturas especialmente desenvolvidas para motoboys e suas famílias</p>
+          </div>
+          
+          <div className="max-w-5xl mx-auto space-y-6">
+            {[
+              {
+                icon: <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>,
+                title: 'Seguro de Vida',
+                value: 'Até R$ 100.000',
+                desc: 'Proteção financeira completa para você e sua família em casos de acidentes ou imprevistos.',
+                highlights: ['Morte acidental', 'Invalidez permanente', 'Auxílio funeral']
+              },
+              {
+                icon: <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>,
+                title: 'Auxílio Alimentação',
+                value: 'R$ 1.200/mês',
+                desc: 'Suporte financeiro mensal para garantir o sustento da sua família quando mais precisar.',
+                highlights: ['12 meses de benefício', 'Pagamento pontual', 'Sem carência']
+              },
+              {
+                icon: <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z M7 6V4a5 5 0 0 1 10 0v2" /></svg>,
+                title: 'Assistência Funeral',
+                value: 'Cobertura Total',
+                desc: 'Assistência completa para dar todo suporte necessário à família em momentos difíceis.',
+                highlights: ['Cobertura nacional', 'Transporte', 'Documentação']
+              },
+              {
+                icon: <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z M3 10h18" /></svg>,
+                title: 'Suporte Jurídico',
+                value: '24h por dia',
+                desc: 'Orientação jurídica especializada para todas as suas necessidades legais.',
+                highlights: ['Consultoria trabalhista', 'Processos legais', 'Documentação']
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 group"
+              >
+                <div className="grid md:grid-cols-12 items-center p-6 sm:p-8">
+                  {/* Icon Column */}
+                  <div className="md:col-span-2 mb-4 md:mb-0 flex justify-center md:justify-start">
+                    <div className="bg-blue-50 p-3 rounded-xl group-hover:bg-blue-100 transition-colors">
+                      <div className="w-10 h-10 flex items-center justify-center">
+                        {item.icon}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content Column */}
+                  <div className="md:col-span-7 text-center md:text-left">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm mb-3">{item.desc}</p>
+                    <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                      {item.highlights.map((highlight, idx) => (
+                        <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Value Column */}
+                  <div className="md:col-span-3 mt-4 md:mt-0 text-center md:text-right">
+                    <div className="text-blue-600 font-bold text-lg mb-2">{item.value}</div>
+                    <button
+                      onClick={() => plansRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                      className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 group-hover:underline"
+                    >
+                      Ver detalhes
+                      <svg className="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Simple Instruction Section */}
+      <section className="py-12 sm:py-20 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-5xl mx-auto">
+            <div>
+              <img src="/motoboy-family.png" alt="Motoboy com família" className="rounded-3xl shadow-lg w-full mb-6 lg:mb-0" />
+            </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">Contrate em poucos passos</h2>
+              <ol className="space-y-4 text-base sm:text-lg text-gray-700 mb-8 list-decimal list-inside">
+                <li>Escolha o plano ideal para você e sua família.</li>
+                <li>Preencha o formulário de cadastro online.</li>
+                <li>Receba o contato do nosso time e finalize a contratação.</li>
+              </ol>
+              <button 
+                className="bg-blue-600 text-white px-6 sm:px-8 py-3 rounded-full font-medium hover:bg-blue-700 transition-colors text-base sm:text-lg"
+                onClick={() => plansRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                Quero ser protegido
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
