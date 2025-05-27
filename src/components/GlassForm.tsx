@@ -41,19 +41,19 @@ export const GlassForm: React.FC<GlassFormProps> = ({ plano }) => {
       onSubmit={handleSubmit}
     >
       <div className="text-center mb-6">
-        <div className="text-lg font-bold text-blue-700 mb-1">{plano.nome}</div>
+        <div className="text-lg font-bold text-orange-700 mb-1">{plano.nome}</div>
         <div className="text-2xl font-light text-gray-700">R$ {plano.capital},00</div>
       </div>
       <h2 className="text-4xl font-bold text-center mb-4">Complete seu cadastro</h2>
       <p className="text-xl text-gray-600 text-center mb-8">Estamos quase lá! Preencha seus dados para garantir sua proteção.</p>
       <div className="grid grid-cols-1 gap-6">
-        <input type="text" name="name" value={form.name} onChange={handleChange} required placeholder="Nome Completo" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80" />
-        <input type="text" name="cpf" value={form.cpf} onChange={handleChange} required placeholder="CPF (000.000.000-00)" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80" />
-        <input type="tel" name="phone" value={form.phone} onChange={handleChange} required placeholder="Telefone ((00) 00000-0000)" pattern="\(\d{2}\) \d{5}-\d{4}" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80" />
-        <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="E-mail" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80" />
-        <input type="text" name="address" value={form.address} onChange={handleChange} required placeholder="Endereço" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80" />
+        <input type="text" name="name" value={form.name} onChange={handleChange} required placeholder="Nome Completo" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white/80" />
+        <input type="text" name="cpf" value={form.cpf} onChange={handleChange} required placeholder="CPF (000.000.000-00)" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white/80" />
+        <input type="tel" name="phone" value={form.phone} onChange={handleChange} required placeholder="Telefone ((00) 00000-0000)" pattern="\(\d{2}\) \d{5}-\d{4}" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white/80" />
+        <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="E-mail" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white/80" />
+        <input type="text" name="address" value={form.address} onChange={handleChange} required placeholder="Endereço" className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white/80" />
       </div>
-      <button type="submit" className="w-full bg-[#F59E42] text-white py-4 rounded-xl font-semibold text-lg hover:bg-[#FACC15] transition-colors mt-8 shadow-lg">Finalizar Contratação</button>
+      <button type="submit" className="w-full bg-orange-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-orange-700 transition-colors mt-8 shadow-lg">Finalizar Contratação</button>
     </motion.form>
   );
-}; 
+};
